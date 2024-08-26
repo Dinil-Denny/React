@@ -1,9 +1,40 @@
+#header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px 10px 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+#logo{
+    width: 100px;
+    height: 100px;
+}
+#nav_links > ul > li{
+    list-style: none;
+    font-size: large;
+    padding: 20px;
+}
+#menu_list{
+    display: flex;
+}
 #body{
-    background-color: black;
+    padding: 0px 30px 0px 30px;
 }
-#heading{
-    color: chartreuse;
+.res_card{
+    width: 200px;
+    height: 350px;
+    background-color: rgb(255, 238, 215);
+    padding: 10px;
+    margin: 15px;
+    border-radius: 5px;
 }
-#description{
-    color: white;
+#res_card_container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.res_card_img{
+    width: 100%;
+}
+#search_box{
+    margin-top: 20px;
 }

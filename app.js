@@ -1,5 +1,14 @@
 import ReactDOM from 'react-dom/client';
 
+const restaurantData = [
+    {id:1,name:"Paragon",cuisine:"Indian",rating:4.5},
+    {id:2,name:"MayFlower",cuisine:"Indian",rating:4},
+    {id:3,name:"Rahmath",cuisine:"Indian",rating:4},
+    {id:4,name:"Sufi",cuisine:"Arabian",rating:4.5},
+    {id:5,name:"Chines Hut",cuisine:"Chines",rating:3},
+    {id:6,name:"Pizza Hut",cuisine:"Italian",rating:3.5}
+]
+
 const Header = ()=>{
     return (
         <div id='header'>
@@ -16,13 +25,15 @@ const Header = ()=>{
         </div>
     )
 }
-const ResCards = () => {
+const ResCards = (props) => {
+    let {resDetails} = props;
+    let {name,cuisine,rating} = resDetails;
     return(
         <div className='res_card'>
             <img className='res_card_img' src='https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg'/>
-            <h3>Restaurant Name</h3>
-            <p>North Indian,Chines,South Indian</p>
-            <h4>Rating </h4>
+            <h3>{name}</h3>
+            <p>{cuisine}</p>
+            <h4>{rating} </h4>
         </div>
     )
 }
@@ -31,12 +42,11 @@ const Body = () => {
         <div id='body'>
             <div id='search_box'>Search</div>
             <div id='res_card_container'>
-                <ResCards/>
-                <ResCards/>
-                <ResCards/>
-                <ResCards/>
-                <ResCards/>
-                <ResCards/>
+                {
+                    restaurantData.map(restaurant => (
+                        <ResCards key={restaurant.id} resDetails={restaurant}/>
+                    ))
+                }
             </div>
         </div>
     )

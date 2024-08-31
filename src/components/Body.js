@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { restaurants } from "../../utils/sampleData";
+//import { restaurants } from "../../utils/sampleData";
 import ResCards from "./ResCards";
+import ShimmerUI from "./Shimmer";
 
 
 const Body = () => {
@@ -19,6 +20,13 @@ const Body = () => {
         } catch (error) {
             if(error)console.log(error.message);
         }
+    }
+
+    //Shimmer UI generating before actual content is loaded
+    if(restaurantDatas.length === 0){
+        return(
+            <ShimmerUI/>
+        )
     }
 
     return(

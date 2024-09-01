@@ -7,6 +7,9 @@ import ShimmerUI from "./Shimmer";
 const Body = () => {
     //state variable
     const [restaurantDatas,setRestaurantDatas] = useState([]);
+    const [searchText,setSearchText] = useState("");
+    //state variable to hold the searched restaurants
+    const [searchRes,setSearchRes] = useState([]);
 
     useEffect(()=>{
         fetchSwiggyData();
@@ -16,13 +19,15 @@ const Body = () => {
             let response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=11.2587531&lng=75.78041&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
             let data = await response.json();
             setRestaurantDatas(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setSearchRes(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
             //console.log("data from swiggy: ",data);
         } catch (error) {
             if(error)console.log(error.message);
         }
     }
 
-    //Shimmer UI generating before actual content is loaded
+    //Shimmer UI rendering before actual content is loaded
+    //conditional rendering
     if(restaurantDatas.length === 0){
         return(
             <ShimmerUI/>
@@ -31,16 +36,26 @@ const Body = () => {
 
     return(
         <div id='body'>
-            <div id='search_box'>Search</div>
+            <div id='search_box'>
+                <input type="text" placeholder="search....." className="search_input" value={searchText} onChange={(e)=>{
+                    setSearchText(e.target.value);
+                }}></input>
+                <button className="search_btn" onClick={()=>{
+                    //here we convert the restaurant name form restaurantDatas array and searchText from the search input box to lowercase to make the search case insesitive.
+                    //here we don't use any database so this is how we can solve the case sensitivity issues.
+                    let searchRes = restaurantDatas.filter(restaurant => restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                    setSearchRes(searchRes);
+                }}>Search</button>
+            </div>
             <div id="filter_restaurants">
                 <button id="filter_btn" onClick={()=>{
-                    let filteredRestaurnats = restaurantDatas.filter((restaurant) => restaurant?.info?.avgRating > 4);
+                    let filteredRestaurnats = restaurantDatas.filter((restaurant) => restaurant?.info?.avgRating > 4.5);
                     setRestaurantDatas(filteredRestaurnats);
                 }}>Top rated restaurants</button>
             </div>
             <div id='res_card_container'>
                 {
-                    restaurantDatas.map(restaurant => (
+                    searchRes.map(restaurant => (
                         <ResCards key={restaurant.info.id} resDetails={restaurant}/>
                     ))
                 }

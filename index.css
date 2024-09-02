@@ -80,3 +80,7 @@
     padding: 20px;
     cursor: pointer;
 }
+.nav_menu{
+    text-decoration: none;
+    color:  red;
+}

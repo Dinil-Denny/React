@@ -1,8 +1,12 @@
 import { LOGO } from "../../utils/links";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
 const Header = ()=>{
     const [loginState,setLoginState] = useState("Login");
+
+    useEffect(()=>{
+        console.log("useEffect called")
+    },[loginState])
 
     return (
         <div id='header'>

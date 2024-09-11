@@ -84,3 +84,10 @@
     text-decoration: none;
     color:  rgb(0, 0, 0);
 }
+.user_card{
+    margin-top: 50px;
+    padding: 15px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 15px;
+    width: fit-content;
+}
